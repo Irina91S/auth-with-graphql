@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import query from "../queries/CurrentUser";
 import logout from "../mutations/Logout";
 
 const Header = props => {
+
   const onLogout = () => {
     const { mutate } = props;
     mutate({

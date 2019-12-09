@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthForm from "./AuthForm";
 import { graphql } from "react-apollo";
 
@@ -6,12 +6,22 @@ import signUp from "../mutations/SignUp";
 import query from "../queries/CurrentUser";
 
 const SignUp = props => {
+  const {
+    data: { user },
+    history
+  } = props;
+  useEffect(() => {
+    if (user) {
+      history.push("/dashboard");
+    }
+  }, [user]);
+
   const onSubmit = () => ({ email, password }) => {
     const { mutate } = props;
     mutate({
       variables: { email, password },
       refetchQueries: [{ query }]
-    });
+    }).then(() => {});
   };
 
   return (
