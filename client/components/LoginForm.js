@@ -1,12 +1,29 @@
 import React from "react";
-import AuthForm from "./AuthForm";
+import { graphql } from "react-apollo";
 
-const Login = () => {
+import AuthForm from "./AuthForm";
+import login from "../mutations/Login";
+import query from "../queries/CurrentUser";
+
+const Login = props => {
+  const onSubmit = () => ({ email, password }) => {
+    const { mutate } = props;
+    mutate({
+      variables: { email, password },
+      refetchQueries: [{ query }]
+    }).catch(res => {
+      console.log(res);
+      const errors = res.graphQLErrors.map(error => {
+        return error.message;
+      });
+    });
+  };
+
   return (
     <div className="row">
       <h3>Login</h3>
-      <AuthForm />
+      <AuthForm onSubmit={onSubmit()}/>
     </div>
   );
 };
-export default Login;
+export default graphql(login)(graphql(query)(Login));
