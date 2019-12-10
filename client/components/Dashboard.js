@@ -13,6 +13,6 @@ const Dashboard = props => {
     }
   }, [user]);
 
-  return <div>Dashboard</div>;
+  return <div>{user && <p>You are logged in</p>}</div>;
 };
 export default graphql(query)(Dashboard);

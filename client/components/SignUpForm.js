@@ -21,7 +21,7 @@ const SignUp = props => {
     mutate({
       variables: { email, password },
       refetchQueries: [{ query }]
-    }).then(() => {});
+    })
   };
 
   return (

@@ -21,12 +21,7 @@ const Login = props => {
     mutate({
       variables: { email, password },
       refetchQueries: [{ query }]
-    }).catch(res => {
-      console.log(res);
-      const errors = res.graphQLErrors.map(error => {
-        return error.message;
-      });
-    });
+    })
   };
 
   return (
